@@ -1,54 +1,51 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_utils.c                                         :+:      :+:    :+:   */
+/*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lmonsat <lmonsat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/05 22:22:24 by lmonsat           #+#    #+#             */
-/*   Updated: 2025/03/07 19:02:02 by lmonsat          ###   ########.fr       */
+/*   Created: 2025/03/05 22:23:29 by lmonsat           #+#    #+#             */
+/*   Updated: 2025/03/07 17:24:21 by lmonsat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	is_str(char *str)
+static int	cd_home(struct s_shell *shell)
 {
-	while (str)
+	char	*home;
+	char	cwd[1024];
+
+	if (getcwd(cwd, sizeof(cwd)) == NULL)
+		return (1);
+	home = getenv("HOME");
+	if (!home)
+		return (1);
+	push_dir(shell, cwd);
+	if (chdir(home) != 0)
 	{
-		if (!is_alpha(*str))
-			return (0);
-		str++;
+		perror("cd");
+		return (1);
 	}
-	return (1);
-}
-
-int	is_redirect(int c)
-{
-	if (!c)
-		return (0);
-	if (c == '<' || c == '>')
-		return (1);
 	return (0);
 }
 
-int	is_alnum(int c)
+int	ft_cd(char **argv, struct s_shell *shell, struct s_shell *head)
 {
-	if ((c >= '0' && c <= '9') || (is_alpha(c)))
-		return (1);
-	return (0);
-}
+	char	cwd[1024];
 
-int	is_space(int c)
-{
-	if (c == ' ' || c == '\t')
+	(void)head;
+	if (!argv[1])
+		return (cd_home(shell));
+	if (getcwd(cwd, sizeof(cwd)) == NULL)
 		return (1);
-	return (0);
-}
-
-int	is_quotes(int c)
-{
-	if (c == '"' || c == 39)
+	push_dir(shell, cwd);
+	if (chdir(argv[1]) != 0)
+	{
+		perror("cd");
+		pop_dir(shell);
 		return (1);
+	}
 	return (0);
 }

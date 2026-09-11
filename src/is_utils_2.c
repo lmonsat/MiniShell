@@ -1,54 +1,50 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_utils.c                                         :+:      :+:    :+:   */
+/*   is_utils_2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lmonsat <lmonsat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/05 22:22:24 by lmonsat           #+#    #+#             */
-/*   Updated: 2025/03/07 19:02:02 by lmonsat          ###   ########.fr       */
+/*   Created: 2025/03/05 22:12:02 by lmonsat           #+#    #+#             */
+/*   Updated: 2025/03/07 21:02:21 by lmonsat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	is_str(char *str)
+int	is_token_red(enum e_tokens token)
 {
-	while (str)
-	{
-		if (!is_alpha(*str))
-			return (0);
-		str++;
-	}
-	return (1);
-}
-
-int	is_redirect(int c)
-{
-	if (!c)
-		return (0);
-	if (c == '<' || c == '>')
+	if (token == REDIR_INPUT || token == REDIR_OUTPUT || token == REDIR_APPEND
+		|| token == REDIR_HEREDOC)
 		return (1);
 	return (0);
 }
 
-int	is_alnum(int c)
+int	is_spec_char(int c)
 {
-	if ((c >= '0' && c <= '9') || (is_alpha(c)))
+	if (c == ' ' || c == 39 || c == '"' || c == '|' || c == '-'
+		|| is_redirect(c))
 		return (1);
 	return (0);
 }
 
-int	is_space(int c)
+int	is_spec_char_no_space(int c)
 {
-	if (c == ' ' || c == '\t')
+	if (c == 39 || c == '"' || c == '|' || c == '-' || is_redirect(c))
 		return (1);
 	return (0);
 }
 
-int	is_quotes(int c)
+int	is_ignored_char(int c)
 {
-	if (c == '"' || c == 39)
+	if (c == '/' || c == '\\' || c == '!' || c == ':' || c == '.')
+		return (1);
+	return (0);
+}
+
+int	is_alpha(int c)
+{
+	if ((c >= 65 && c <= 90) || (c >= 97 && c <= 122))
 		return (1);
 	return (0);
 }

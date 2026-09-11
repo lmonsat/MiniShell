@@ -1,70 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   linked_list.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lmonsat <lmonsat@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/05 22:19:20 by lmonsat           #+#    #+#             */
+/*   Updated: 2025/03/07 19:02:06 by lmonsat          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/minishell.h"
 
-/* fonction de test */
-void print_list(struct s_shell *current)
-{
-	ft_printf("Liste chainé : ");
-	while (current != NULL)
-	{
-		if (current->data)
-			ft_printf("%s -> ", current->data);
-		current = current->next;
-	}
-	ft_printf("NULL\n");
-}
-
-/* fonction de test */
-const char *get_token_name(enum e_tokens token) 
-{
-   switch (token) 
-   {
-      case TOKEN_UNDEFINED: return "TOKEN_UNDEFINED";
-      case TOKEN_CMD: return "TOKEN_CMD";
-	  case TOKEN_ARG: return "TOKEN_ARG";
-	  case TOKEN_RED: return "TOKEN_RED";
-	  case REDIR_INPUT: return "REDIR_INPUT";
-	  case REDIR_OUTPUT: return "REDIR_OUTPUT";
-	  case REDIR_APPEND: return "REDIR_APPEND";
-	  case REDIR_HEREDOC: return "REDIR_HEREDOC";
-	  case TOKEN_PIPE: return "TOKEN_PIPE";
-	  case TOKEN_FILE: return "TOKEN_FILE";
-	  case TOKEN_SIMPLE_QUOTE: return "TOKEN_SIMPLE_QUOTE";
-	  case TOKEN_DOUBLE_QUOTE: return "TOKEN_DOUBLE_QUOTE";
-	  default: return (NULL);
-   }
-}
-
-/* fonction de test */
-void print_token(struct s_shell *current)
-{
-	ft_printf("Liste token : ");
-	while (current != NULL)
-	{
-		ft_printf("%s -> ", get_token_name(current->token));
-		current = current->next;
-	}
-	ft_printf("NULL\n");
-}
-
-int get_nb_token(struct s_shell *current)
-{
-	int i;
-
-	i = 0;
-	while (current != NULL)
-	{
-		current = current->next;
-		i++;
-	}
-	return (i);
-}
-
-/* Fonction complémentaire de create_node 
-	permet de set la size ainsi que d'initialiser data, 
+/* Fonction complémentaire de create_node
+	permet de set la size ainsi que d'initialiser data,
 	si necessaire*/
-static void data_node(struct s_shell *new_node, char *token_type)
+static void	data_node(struct s_shell *new_node, char *token_type)
 {
-	int size;
+	int	size;
 
 	size = 255;
 	if (token_type)
@@ -89,6 +42,7 @@ static void data_node(struct s_shell *new_node, char *token_type)
 struct s_shell	*create_node(char *data, char *token_type)
 {
 	struct s_shell	*new_node;
+
 	new_node = malloc(sizeof(struct s_shell));
 	if (new_node == NULL)
 	{
@@ -115,9 +69,9 @@ struct s_shell	*create_node(char *data, char *token_type)
 }
 
 /* Insert un noeud au début de la liste donnée
-	le token_type peut être précisé afin d'optimisé la taille de size 
+	le token_type peut être précisé afin d'optimisé la taille de size
 	si token_type == NULL alors data n'est pas initialisé */
-void insert_head(struct s_shell **head, char *new_data, char *token_type)
+void	insert_head(struct s_shell **head, char *new_data, char *token_type)
 {
 	struct s_shell	*new_node;
 
@@ -131,34 +85,34 @@ void insert_head(struct s_shell **head, char *new_data, char *token_type)
 }
 
 /* Retourne le dernier noeud de la liste donnée */
-struct s_shell *get_last_node(struct s_shell *head)
+struct s_shell	*get_last_node(struct s_shell *head)
 {
-    if (head == NULL)
-        return NULL;
-    while (head->next != NULL)
-        head = head->next;
-    return (head);
+	if (head == NULL)
+		return (NULL);
+	while (head->next != NULL)
+		head = head->next;
+	return (head);
 }
 
 /* Insert un noeud a la fin de la liste donnée
-	le token_type peut être précisé afin d'optimisé la taille de size 
+	le token_type peut être précisé afin d'optimisé la taille de size
 	si token_type == NULL alors data n'est pas initialisé */
-void insert_tail(struct s_shell **head, char *new_data, char *token_type)
+void	insert_tail(struct s_shell **head, char *new_data, char *token_type)
 {
-    struct s_shell *new_node;
-    struct s_shell *last_node;
+	struct s_shell	*new_node;
+	struct s_shell	*last_node;
 
-    new_node = create_node(new_data, token_type);
+	new_node = create_node(new_data, token_type);
 	new_node->next = NULL;
-    if(*head == NULL)
-         *head = new_node;
-    else
-    {
-        last_node = *head;
-        while(last_node->next != NULL)
-        {
-            last_node = last_node->next;
-        }
-        last_node->next = new_node;
-    }
+	if (*head == NULL)
+		*head = new_node;
+	else
+	{
+		last_node = *head;
+		while (last_node->next != NULL)
+		{
+			last_node = last_node->next;
+		}
+		last_node->next = new_node;
+	}
 }

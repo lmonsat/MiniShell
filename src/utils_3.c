@@ -1,35 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal.c                                           :+:      :+:    :+:   */
+/*   utils_3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lmonsat <lmonsat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/05 22:21:24 by lmonsat           #+#    #+#             */
-/*   Updated: 2025/03/07 19:03:11 by lmonsat          ###   ########.fr       */
+/*   Created: 2025/03/05 22:14:48 by lmonsat           #+#    #+#             */
+/*   Updated: 2025/03/07 19:03:17 by lmonsat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-// gestion des signaux
-
-void	handle_signal(int sig, siginfo_t *info, void *context)
+char	*ft_strncpy(char *dest, const char *src, size_t n)
 {
-	(void)context;
-	(void)info;
-	if (sig == SIGINT)
+	size_t	i;
+
+	i = 0;
+	while (src[i] && i < n)
 	{
-		write(1, "\n", 1);
-		rl_on_new_line();
-		rl_replace_line("", 1);
-		rl_redisplay();
+		dest[i] = src[i];
+		i++;
 	}
-	else if (sig == SIGQUIT)
+	while (i < n)
 	{
-		write(1, "\n", 1);
-		rl_on_new_line();
-		rl_replace_line("", 1);
-		rl_redisplay();
+		dest[i] = '\0';
+		i++;
 	}
+	return (dest);
+}
+
+char	*ft_strcat(char *dest, const char *src)
+{
+	size_t	dest_len;
+	size_t	i;
+
+	dest_len = ft_strlen(dest);
+	i = 0;
+	while (src[i] != '\0')
+	{
+		dest[dest_len + i] = src[i];
+		i++;
+	}
+	dest[dest_len + i] = '\0';
+	return (dest);
 }

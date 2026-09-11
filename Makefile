@@ -5,15 +5,15 @@
 #                                                     +:+ +:+         +:+      #
 #    By: lmonsat <lmonsat@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/11/28 10:00:09 by root              #+#    #+#              #
-#    Updated: 2025/01/24 17:19:46 by lmonsat          ###   ########.fr        #
+#    Created: 2025/03/08 17:30:08 by lmonsat           #+#    #+#              #
+#    Updated: 2025/03/08 17:30:10 by lmonsat          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Variables
 NAME = minishell
 CC = cc
-CFLAGS = -g #-Wall -Wextra -Werror
+CFLAGS = -g -Wall -Wextra -Werror
 SRC_DIR = src
 OBJ_DIR = obj
 INCLUDE = include
@@ -22,7 +22,9 @@ LIBFT = $(LIBFT_DIR)/libft.a
 LDLIBS = -lreadline
 
 # Fichiers source et objets
-SRC = main.c parsing.c execution.c builtins.c signal.c utils.c is_utils.c linked_list.c
+SRC = main.c parsing.c execution.c signal.c utils.c is_utils.c linked_list.c echo.c env.c env2.c expand.c pwd.c cd.c exit.c \
+		cmd_execution.c get_data.c redirections.c redir_heredoc.c child_process.c multi_pipes.c parsing_quotes.c parsing_args.c \
+		parsing_redirections.c is_utils_2.c is_utils_3.c utils_2.c utils_3.c print_linked_list.c utils_4.c
 SRCS = $(addprefix $(SRC_DIR)/, $(SRC))
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
 
@@ -36,13 +38,9 @@ RESET = \033[0m
 all: $(NAME)
 
 $(NAME): $(OBJS) $(LIBFT)
-	@if [ ! -f $(NAME) ]; \
-	then \
-		echo "\n$(B_BLUE)Compiling $(NAME)...$(B_WHITE)\n"; \
-		echo "$(CC) $(CFLAGS) -I $(INCLUDE) -o $(NAME) $(OBJS) $(LIBFT) $(LDLIBS)"; \
-		$(CC) $(CFLAGS) -I $(INCLUDE) -o $(NAME) $(OBJS) $(LIBFT) $(LDLIBS); \
-		echo "\n$(B_GREEN)$(NAME) compiled successfully!$(B_WHITE)\n"; \
-	fi
+	@echo "\n$(B_BLUE)Compiling $(NAME)...$(B_WHITE)\n"
+	$(CC) $(CFLAGS) -I $(INCLUDE) -o $(NAME) $(OBJS) $(LIBFT) $(LDLIBS)
+	@echo "\n$(B_GREEN)$(NAME) compiled successfully!$(B_WHITE)\n"
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
 	$(CC) $(CFLAGS) -I $(INCLUDE) -c $< -o $@
