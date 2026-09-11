@@ -19,7 +19,7 @@
 
 ## About
 
-**MiniShell** is a simplified recreation of `bash`, built from scratch in C. This is one of the most challenging projects in the 42 curriculum â it covers **lexing**, **parsing**, **process management**, **file descriptor manipulation**, and the inner workings of a UNIX shell.
+MiniShell is a simplified recreation of bash, built from scratch in C. This is one of the most challenging projects in the 42 curriculum — it covers lexing, parsing, process management, file descriptor manipulation, and the inner workings of a UNIX shell.
 
 The goal: type a command, and it works like you'd expect in bash.
 
