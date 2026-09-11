@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "minishell.h"
 
 /* Détermine s'il y a un pipe dans la liste chaînée
 	auquel cas renvois le nombre de pipe total */

@@ -1,47 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_3.c                                          :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lmonsat <lmonsat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/05 22:14:48 by lmonsat           #+#    #+#             */
-/*   Updated: 2025/03/07 19:03:17 by lmonsat          ###   ########.fr       */
+/*   Created: 2025/03/05 22:23:14 by lmonsat           #+#    #+#             */
+/*   Updated: 2025/03/07 17:24:35 by lmonsat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "minishell.h"
 
-char	*ft_strncpy(char *dest, const char *src, size_t n)
+int	ft_echo(char **argv, struct s_shell *shell, struct s_shell *head)
 {
-	size_t	i;
+	int	i;
+	int	newline;
 
-	i = 0;
-	while (src[i] && i < n)
+	i = 1;
+	newline = 1;
+	(void)head;
+	i = 1;
+	while (argv[i] && ft_strcmp(argv[i], "-n") == 0)
 	{
-		dest[i] = src[i];
+		newline = 0;
 		i++;
 	}
-	while (i < n)
+	while (argv[i])
 	{
-		dest[i] = '\0';
+		ft_putstr_fd(argv[i], 1);
 		i++;
 	}
-	return (dest);
-}
-
-char	*ft_strcat(char *dest, const char *src)
-{
-	size_t	dest_len;
-	size_t	i;
-
-	dest_len = ft_strlen(dest);
-	i = 0;
-	while (src[i] != '\0')
-	{
-		dest[dest_len + i] = src[i];
-		i++;
-	}
-	dest[dest_len + i] = '\0';
-	return (dest);
+	if (newline)
+		ft_putchar_fd('\n', 1);
+	shell->exit_code = 0;
+	return (0);
 }

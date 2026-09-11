@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "minishell.h"
 
 int	ft_pwd(char **argv, struct s_shell *shell, struct s_shell *head)
 {

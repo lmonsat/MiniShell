@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "minishell.h"
 
 static void	redir_input_exec(struct s_shell *shell, struct s_shell *head,
 		int fd, int saved_stdin)

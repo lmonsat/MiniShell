@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 // gestion de l'executions des commande
-#include "../include/minishell.h"
+#include "minishell.h"
 
 static struct s_shell	*set_first_arg(struct s_shell *head,
 		struct s_shell *first_arg, int *flag)

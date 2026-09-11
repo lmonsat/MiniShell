@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "minishell.h"
 
 /* Fonction permettant de tokenizer les commandes */
 static int	p_command(int *i, char *str, struct s_shell **head)

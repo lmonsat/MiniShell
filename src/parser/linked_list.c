@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "minishell.h"
 
 /* Fonction complémentaire de create_node
 	permet de set la size ainsi que d'initialiser data,

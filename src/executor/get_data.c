@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "minishell.h"
 
 /* Remise a la norme de l'initialisation de ta structure t_builtin */
 void	initialize_builtin(t_builtin *builtin)

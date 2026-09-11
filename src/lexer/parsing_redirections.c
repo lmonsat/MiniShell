@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "minishell.h"
 
 /* écrit la data du token filename dans le noeud adéquat */
 static void	in_out_data(char *str, int *i, struct s_shell **head)

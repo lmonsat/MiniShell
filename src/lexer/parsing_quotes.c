@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "minishell.h"
 
 /* Fonction complémentaire a p_quotes,
 	permet de vérifier s'il y a des double quotes

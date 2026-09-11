@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "minishell.h"
 
 /* Fonction permettant de tokenizer les pipes */
 int	p_pipe(int *i, char *str, struct s_shell **head)

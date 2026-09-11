@@ -22,9 +22,18 @@ LIBFT = $(LIBFT_DIR)/libft.a
 LDLIBS = -lreadline
 
 # Fichiers source et objets
-SRC = main.c parsing.c execution.c signal.c utils.c is_utils.c linked_list.c echo.c env.c env2.c expand.c pwd.c cd.c exit.c \
-		cmd_execution.c get_data.c redirections.c redir_heredoc.c child_process.c multi_pipes.c parsing_quotes.c parsing_args.c \
-		parsing_redirections.c is_utils_2.c is_utils_3.c utils_2.c utils_3.c print_linked_list.c utils_4.c
+SRC = main.c \
+	lexer/parsing.c lexer/parsing_quotes.c lexer/parsing_args.c \
+	lexer/parsing_redirections.c lexer/expand.c \
+	parser/linked_list.c parser/print_linked_list.c \
+	executor/execution.c executor/cmd_execution.c executor/get_data.c \
+	executor/redirections.c executor/redir_heredoc.c \
+	executor/child_process.c executor/multi_pipes.c \
+	builtins/echo.c builtins/env.c builtins/env2.c \
+	builtins/pwd.c builtins/cd.c builtins/exit.c \
+	signals/signal.c \
+	utils/utils.c utils/utils_2.c utils/utils_3.c utils/utils_4.c \
+	utils/is_utils.c utils/is_utils_2.c utils/is_utils_3.c
 SRCS = $(addprefix $(SRC_DIR)/, $(SRC))
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
 
@@ -42,11 +51,9 @@ $(NAME): $(OBJS) $(LIBFT)
 	$(CC) $(CFLAGS) -I $(INCLUDE) -o $(NAME) $(OBJS) $(LIBFT) $(LDLIBS)
 	@echo "\n$(B_GREEN)$(NAME) compiled successfully!$(B_WHITE)\n"
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -I $(INCLUDE) -c $< -o $@
-
-$(OBJ_DIR):
-	mkdir -p $(OBJ_DIR)
 
 $(LIBFT):
 	$(MAKE) -C $(LIBFT_DIR)
@@ -69,4 +76,3 @@ fclean: clean
 re: fclean all
 
 .PHONY: all clean fclean re
-

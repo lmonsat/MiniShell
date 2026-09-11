@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "minishell.h"
 
 static void	failed_execve(struct s_shell *current, struct s_shell *shell,
 		char **data, char **args)
